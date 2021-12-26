@@ -62,12 +62,6 @@ jobs:
         
       - name: List files
         run: ls
-      - name: List files in project directory
-        working-directory: .\${{ env.PROJECT_NAME }}
-        run: ls
-      - name: List files in project directory second level
-        working-directory: .\${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}
-        run: ls
         
         
       - name: Publish CLI
