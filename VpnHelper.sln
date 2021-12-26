@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VpnHelperCli", "VpnHelperCli\VpnHelperCli.csproj", "{87BB7967-45F3-4AF6-9EA0-E681F9287972}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VpnHelperGui", "VpnHelperGui\VpnHelperGui.csproj", "{A674A1A7-918D-4B52-8947-90E874E83412}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VpnHelper", "VpnHelper\VpnHelper.csproj", "{D85254BA-7996-4E89-9179-86A4CFBA380F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C64E802-BA35-43DF-8CA4-D4F56DD4B148}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87BB7967-45F3-4AF6-9EA0-E681F9287972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BB7967-45F3-4AF6-9EA0-E681F9287972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BB7967-45F3-4AF6-9EA0-E681F9287972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BB7967-45F3-4AF6-9EA0-E681F9287972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A674A1A7-918D-4B52-8947-90E874E83412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A674A1A7-918D-4B52-8947-90E874E83412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A674A1A7-918D-4B52-8947-90E874E83412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A674A1A7-918D-4B52-8947-90E874E83412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85254BA-7996-4E89-9179-86A4CFBA380F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85254BA-7996-4E89-9179-86A4CFBA380F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85254BA-7996-4E89-9179-86A4CFBA380F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85254BA-7996-4E89-9179-86A4CFBA380F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60388C49-70C5-4C8D-886B-7535186106C7}
+	EndGlobalSection
+EndGlobal
