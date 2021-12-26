@@ -60,13 +60,22 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
         
+      - name: List files
+        run: ls
+      - name: List files in project directory
+        working-directory: .\${{ env.PROJECT_NAME }}
+        run: ls
+      - name: List files in project directory second level
+        working-directory: .\${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}
+        run: ls
+        
         
       - name: Publish CLI
-        working-directory: .\${{ env.PROJECT_NAME }}\VpnHelperCli
+        working-directory: .\VpnHelperCli
         run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\FrameworkDependentSingleFile\win
         
       - name: Publish GUI
-        working-directory: .\${{ env.PROJECT_NAME }}\VpnHelperGui
+        working-directory: .\VpnHelperGui
         run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\FrameworkDependentSingleFile\win
         
       - name: Create Release
