@@ -65,12 +65,12 @@ jobs:
         
         
       - name: Publish CLI
-        working-directory: .\VpnHelperCli
-        run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\FrameworkDependentSingleFile\win
+        working-directory: .
+        run: dotnet publish .\VpnHelperCli -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\Publish\FrameworkDependentSingleFile\win
         
       - name: Publish GUI
-        working-directory: .\VpnHelperGui
-        run: dotnet publish -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\FrameworkDependentSingleFile\win
+        working-directory: .
+        run: dotnet publish .\VpnHelperGui -r win-x64 -c Release -p:PublishSingleFile=true --no-self-contained -o:.\Publish\FrameworkDependentSingleFile\win
         
       - name: Create Release
         id: create_release
@@ -84,28 +84,22 @@ jobs:
           prerelease: false
           
           
-      - name: List files
+      - name: List publish files
         run: ls
-      - name: List files in project directory
-        working-directory: .\${{ env.PROJECT_NAME }}
-        run: ls
-      - name: List files in project directory second level
-        working-directory: .\${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}
-        run: ls
-        
+        working-directory: .\Publish
         
       - name: Delete pdb
         shell: cmd
-        run: del .\${{ env.PROJECT_NAME }}\FrameworkDependentSingleFile\win\*.pdb
+        run: del .\Publish\FrameworkDependentSingleFile\win\*.pdb
         
      # - name: Copy release included files
      #   shell: cmd
-     #   run: copy /Y .\${{ env.PROJECT_NAME }}\IncludeInRelease\* .\${{ env.PROJECT_NAME }}\FrameworkDependentSingleFile\win\
+     #   run: copy /Y .\IncludeInRelease\* .\Publish\FrameworkDependentSingleFile\win\
         
       - name: Zip Build
         shell: powershell
-        working-directory: .\${{ env.PROJECT_NAME }}
-        run: Compress-7Zip -Path .\FrameworkDependentSingleFile\win\ -ArchiveFileName ${{ env.PROJECT_NAME }}.zip -Format Zip
+        working-directory: .\
+        run: Compress-7Zip -Path .\Publish\FrameworkDependentSingleFile\win\ -ArchiveFileName ${{ env.PROJECT_NAME }}.zip -Format Zip
         
         
       - name: Upload Release Asset
@@ -115,6 +109,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: .\${{ env.PROJECT_NAME }}\${{ env.PROJECT_NAME }}.zip
+          asset_path: .\${{ env.PROJECT_NAME }}.zip
           asset_name: ${{ env.PROJECT_NAME }}.zip
           asset_content_type: application/zip
