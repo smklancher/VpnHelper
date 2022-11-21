@@ -42,6 +42,11 @@ public partial class VpnHelperForm : Form
         LoadSettings();
     }
 
+    private void ListAllCredentialsButton_Click(object sender, EventArgs e)
+    {
+        Trace.WriteLine("\r\n" + CredentialHelper.AllCredentials());
+    }
+
     private void LoadSettings()
     {
         Options.Instance.Server = Server.Value;

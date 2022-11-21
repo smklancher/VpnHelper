@@ -35,6 +35,7 @@ namespace VpnLinkGui
             this.OptionsButton = new System.Windows.Forms.Button();
             this.CredManButton = new System.Windows.Forms.Button();
             this.StoredPwdButton = new System.Windows.Forms.Button();
+            this.ListAllCredentialsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StatusButton
@@ -103,11 +104,22 @@ namespace VpnLinkGui
             this.StoredPwdButton.UseVisualStyleBackColor = true;
             this.StoredPwdButton.Click += new System.EventHandler(this.StoredPwdButton_Click);
             // 
+            // ListAllCredentialsButton
+            // 
+            this.ListAllCredentialsButton.Location = new System.Drawing.Point(691, 14);
+            this.ListAllCredentialsButton.Name = "ListAllCredentialsButton";
+            this.ListAllCredentialsButton.Size = new System.Drawing.Size(136, 27);
+            this.ListAllCredentialsButton.TabIndex = 7;
+            this.ListAllCredentialsButton.Text = "List All Credentials";
+            this.ListAllCredentialsButton.UseVisualStyleBackColor = true;
+            this.ListAllCredentialsButton.Click += new System.EventHandler(this.ListAllCredentialsButton_Click);
+            // 
             // VpnHelperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 519);
+            this.Controls.Add(this.ListAllCredentialsButton);
             this.Controls.Add(this.StoredPwdButton);
             this.Controls.Add(this.CredManButton);
             this.Controls.Add(this.OptionsButton);
@@ -132,6 +144,7 @@ namespace VpnLinkGui
         private System.Windows.Forms.Button OptionsButton;
         private Button CredManButton;
         private Button StoredPwdButton;
+        private Button ListAllCredentialsButton;
     }
 }
 
