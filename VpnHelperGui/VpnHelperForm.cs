@@ -1,4 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Diagnostics;
 using Microsoft.Win32;
 using UtilityCommon;
 using VpnLink;
@@ -66,7 +74,7 @@ public partial class VpnHelperForm : Form
 
     private void ReconnectButton_Click(object sender, EventArgs e)
     {
-        VpnController.ConnectIfNeeded();
+        VpnController.ConnectIfNeeded2();
     }
 
     private void SaveSettings()
@@ -102,5 +110,6 @@ public partial class VpnHelperForm : Form
     private void VpnLinkForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         SaveSettings();
+        VpnController.DisableAutomationEventHandlers();
     }
 }

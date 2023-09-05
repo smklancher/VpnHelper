@@ -1,0 +1,24 @@
+<Project>
+	<PropertyGroup>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+
+		<!-- required for auto incrementing assembly version-->
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>1.0.*</AssemblyVersion>
+	</PropertyGroup>
+
+
+
+	<PropertyGroup>
+		<NoWarn>$(NoWarn);CS7035</NoWarn>
+		<!-- CS8002- "Referenced assembly does not have a strong name" - disabled because all will be ilmerged -->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PolySharp" Version="1.13.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+</Project>

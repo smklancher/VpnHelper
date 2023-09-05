@@ -1,4 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace VpnLink;
 
@@ -24,6 +31,9 @@ public class Options
 
     [Description("Include full text of VPN command line interface in log output.")]
     public bool ShowVpnCliOutput { get; set; } = false;
+
+    [Description("Don't check if already connected: just kill and reconnect.")]
+    public bool SkipExistingConnectionCheck { get; set; } = true;
 
     public void OnCloseOptionsForm()
     {

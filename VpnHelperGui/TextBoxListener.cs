@@ -1,8 +1,16 @@
 ﻿#nullable disable //leaving this the way it was on .net framework
 
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace UtilityCommon;
 

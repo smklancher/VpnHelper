@@ -12,5 +12,12 @@ namespace VpnLink
                 process.Kill();
             }
         }
+
+        public static Process Start()
+        {
+            var p = Process.Start(@"C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe");
+
+            return p;
+        }
     }
 }

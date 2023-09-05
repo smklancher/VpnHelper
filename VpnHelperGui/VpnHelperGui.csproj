@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
@@ -14,12 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="OptionsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="VpnHelperForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="OptionsDialog.cs" />
+    <Compile Update="VpnHelperForm.cs" />
   </ItemGroup>
 
 </Project>

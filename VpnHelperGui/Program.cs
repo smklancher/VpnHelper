@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace VpnLinkGui;
 
 internal static class Program
@@ -8,7 +11,7 @@ internal static class Program
     [STAThread]
     private static void Main()
     {
-        ApplicationConfiguration.Initialize();
+        //ApplicationConfiguration.Initialize();
         Application.Run(new VpnHelperForm());
     }
 }

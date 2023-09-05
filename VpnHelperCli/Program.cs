@@ -15,6 +15,6 @@ public class Program
         Options.Instance.Server = server;
         Options.Instance.CredentialName = savedCredentialName;
         Options.Instance.IsConsoleSessionRequired = consoleSessionRequired;
-        VpnController.ConnectIfNeeded();
+        VpnController.ConnectIfNeeded2();
     }
 }
