@@ -13,6 +13,8 @@ namespace VpnLink;
 
 public static class VpnController
 {
+    public static bool Complete = false;
+
     // find Window elements with https://github.com/microsoft/accessibility-insights-windows
     private const string EmailTextBoxName = "Enter your email, phone, or Skype.";
 
@@ -116,9 +118,27 @@ public static class VpnController
         EnableAutomationEventHandlers();
         var vpnUiProcess = VpnUI.Start();
 
-        if (TryFindVpnWebHelperProcess(out var helperProcess))
-        {
-        }
+        //int waitSeconds = 60;
+        //while (waitSeconds > 0 && !Complete)
+        //{
+        //    waitSeconds--;
+        //    Log.WriteLine($"Waiting {waitSeconds} seconds...");
+        //    Thread.Sleep(waitSeconds * 1000);
+        //}
+
+        //if (TryFindVpnWebHelperProcess(out var helperProcess))
+        //{
+        //}
+
+        // possibly need the uiAccess flag in manifest?  But then VS won't event run it, probably need to meet requirements:
+        /* https://learn.microsoft.com/en-us/windows/win32/winauto/uiauto-securityoverview?f1url=%3FappId%3DDev10IDEF1%26l%3DEN-US%26k%3Dk%2528VS.DEBUG.ERROR.LAUNCH_ELEVATION_REQUIREMENTS%2529%26rd%3Dtrue
+            To use UIAccess, an assistive technology application needs to:
+
+            Be signed with a certificate to interact with applications running at a higher privilege level.
+            Be trusted by the system. The application must be installed in a secure location that requires a user account control (UAC) prompt for access. For example, the Program Files folder.
+            Be built with a manifest file that includes the uiAccess flag.
+
+         */
 
         // https://web.archive.org/web/20190205004524/https://blogs.msdn.microsoft.com/oldnewthing/20140217-00/?p=1743
         // https://learn.microsoft.com/en-us/windows/win32/winauto/uiauto-clientportal?WT.mc_id=DT-MVP-5003235
@@ -170,6 +190,7 @@ public static class VpnController
             // it would be better to figure out separate automation events, but waiting a bit should be good enough to get something working
             Thread.Sleep(3000);
             SetPassword(window);
+            Complete = true;
         }
     }
 
@@ -182,6 +203,7 @@ public static class VpnController
         Thread.Sleep(3000);
         Log.WriteLine($"Found Window {window.Current.Name}");
 
+        // This seems like it only works when accessiblity insights utilty is running...
         var email = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
         var valuePattern = email?.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
         if (email != null && valuePattern != null)
