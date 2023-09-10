@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public class ElevatedCommandResult
 {

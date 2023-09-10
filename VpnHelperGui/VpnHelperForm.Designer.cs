@@ -43,14 +43,14 @@ namespace VpnLinkGui
             this.CredManButton = new System.Windows.Forms.Button();
             this.StoredPwdButton = new System.Windows.Forms.Button();
             this.ListAllCredentialsButton = new System.Windows.Forms.Button();
+            this.TestUIButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StatusButton
             // 
-            this.StatusButton.Location = new System.Drawing.Point(14, 14);
-            this.StatusButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.StatusButton.Location = new System.Drawing.Point(12, 12);
             this.StatusButton.Name = "StatusButton";
-            this.StatusButton.Size = new System.Drawing.Size(133, 27);
+            this.StatusButton.Size = new System.Drawing.Size(114, 23);
             this.StatusButton.TabIndex = 0;
             this.StatusButton.Text = "Check Status";
             this.StatusButton.UseVisualStyleBackColor = true;
@@ -61,20 +61,18 @@ namespace VpnLinkGui
             this.LogTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogTextBox.Location = new System.Drawing.Point(14, 47);
-            this.LogTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.LogTextBox.Location = new System.Drawing.Point(12, 41);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTextBox.Size = new System.Drawing.Size(905, 457);
+            this.LogTextBox.Size = new System.Drawing.Size(839, 397);
             this.LogTextBox.TabIndex = 1;
             // 
             // ReconnectButton
             // 
-            this.ReconnectButton.Location = new System.Drawing.Point(154, 14);
-            this.ReconnectButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.ReconnectButton.Location = new System.Drawing.Point(132, 12);
             this.ReconnectButton.Name = "ReconnectButton";
-            this.ReconnectButton.Size = new System.Drawing.Size(88, 27);
+            this.ReconnectButton.Size = new System.Drawing.Size(75, 23);
             this.ReconnectButton.TabIndex = 2;
             this.ReconnectButton.Text = "Reconnect";
             this.ReconnectButton.UseVisualStyleBackColor = true;
@@ -82,10 +80,9 @@ namespace VpnLinkGui
             // 
             // OptionsButton
             // 
-            this.OptionsButton.Location = new System.Drawing.Point(248, 14);
-            this.OptionsButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.OptionsButton.Location = new System.Drawing.Point(213, 12);
             this.OptionsButton.Name = "OptionsButton";
-            this.OptionsButton.Size = new System.Drawing.Size(88, 27);
+            this.OptionsButton.Size = new System.Drawing.Size(75, 23);
             this.OptionsButton.TabIndex = 3;
             this.OptionsButton.Text = "Options";
             this.OptionsButton.UseVisualStyleBackColor = true;
@@ -93,9 +90,9 @@ namespace VpnLinkGui
             // 
             // CredManButton
             // 
-            this.CredManButton.Location = new System.Drawing.Point(343, 14);
+            this.CredManButton.Location = new System.Drawing.Point(294, 12);
             this.CredManButton.Name = "CredManButton";
-            this.CredManButton.Size = new System.Drawing.Size(158, 27);
+            this.CredManButton.Size = new System.Drawing.Size(154, 23);
             this.CredManButton.TabIndex = 4;
             this.CredManButton.Text = "Open Credential Manager";
             this.CredManButton.UseVisualStyleBackColor = true;
@@ -103,9 +100,9 @@ namespace VpnLinkGui
             // 
             // StoredPwdButton
             // 
-            this.StoredPwdButton.Location = new System.Drawing.Point(507, 14);
+            this.StoredPwdButton.Location = new System.Drawing.Point(458, 12);
             this.StoredPwdButton.Name = "StoredPwdButton";
-            this.StoredPwdButton.Size = new System.Drawing.Size(178, 27);
+            this.StoredPwdButton.Size = new System.Drawing.Size(153, 23);
             this.StoredPwdButton.TabIndex = 5;
             this.StoredPwdButton.Text = "Open Stored Passwords";
             this.StoredPwdButton.UseVisualStyleBackColor = true;
@@ -113,19 +110,30 @@ namespace VpnLinkGui
             // 
             // ListAllCredentialsButton
             // 
-            this.ListAllCredentialsButton.Location = new System.Drawing.Point(691, 14);
+            this.ListAllCredentialsButton.Location = new System.Drawing.Point(615, 12);
             this.ListAllCredentialsButton.Name = "ListAllCredentialsButton";
-            this.ListAllCredentialsButton.Size = new System.Drawing.Size(136, 27);
+            this.ListAllCredentialsButton.Size = new System.Drawing.Size(117, 23);
             this.ListAllCredentialsButton.TabIndex = 7;
             this.ListAllCredentialsButton.Text = "List All Credentials";
             this.ListAllCredentialsButton.UseVisualStyleBackColor = true;
             this.ListAllCredentialsButton.Click += new System.EventHandler(this.ListAllCredentialsButton_Click);
             // 
+            // TestUIButton
+            // 
+            this.TestUIButton.Location = new System.Drawing.Point(738, 12);
+            this.TestUIButton.Name = "TestUIButton";
+            this.TestUIButton.Size = new System.Drawing.Size(108, 23);
+            this.TestUIButton.TabIndex = 8;
+            this.TestUIButton.Text = "Toggle UI Monitor";
+            this.TestUIButton.UseVisualStyleBackColor = true;
+            this.TestUIButton.Click += new System.EventHandler(this.TestUIButton_Click);
+            // 
             // VpnHelperForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 519);
+            this.ClientSize = new System.Drawing.Size(863, 450);
+            this.Controls.Add(this.TestUIButton);
             this.Controls.Add(this.ListAllCredentialsButton);
             this.Controls.Add(this.StoredPwdButton);
             this.Controls.Add(this.CredManButton);
@@ -133,7 +141,6 @@ namespace VpnLinkGui
             this.Controls.Add(this.ReconnectButton);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.StatusButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "VpnHelperForm";
             this.Text = "VPN Helper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VpnLinkForm_FormClosing);
@@ -152,6 +159,7 @@ namespace VpnLinkGui
         private Button CredManButton;
         private Button StoredPwdButton;
         private Button ListAllCredentialsButton;
+        private Button TestUIButton;
     }
 }
 

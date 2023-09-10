@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 internal class Log
 {

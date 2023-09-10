@@ -7,10 +7,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public class SessionHelper
 {
+    public static bool ChangeToConsoleSessionIfNeeded()
+    {
+        if (Options.Instance.IsConsoleSessionRequired && !SessionHelper.IsConsoleActiveSession())
+        {
+            Log.WriteLine("Sending current Windows session to console to allow VPN connections...");
+            SendCurrentSessionToConsole();
+
+            // not sure if waiting is needed here
+
+            if (!IsConsoleActiveSession())
+            {
+                Log.WriteLine("Could not get to console session, thus cannot connect.");
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static bool IsConsoleActiveSession()
     {
         var pe = new ProcessExecutor("cmd.exe", "/c query session");

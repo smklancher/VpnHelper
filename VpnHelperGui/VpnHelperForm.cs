@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.Win32;
 using UtilityCommon;
-using VpnLink;
+using VpnHelper;
 
 namespace VpnLinkGui;
 
@@ -21,6 +21,7 @@ public partial class VpnHelperForm : Form
     private const string SettingsKey = @"SOFTWARE\smklancher\VpnLinkGui";
     private RegistryLocation CredentialName;
     private RegistryLocation IsConsoleSessionRequired;
+    private bool IsTestMonitoring = false;
     private RegistryLocation Server;
     private RegistryLocation ShowVpnCliOutput;
 
@@ -74,7 +75,10 @@ public partial class VpnHelperForm : Form
 
     private void ReconnectButton_Click(object sender, EventArgs e)
     {
-        VpnController.ConnectIfNeeded2();
+        VpnController.ConnectWithUIAutomation(
+            () => { Trace.WriteLine("Login Success"); },
+            () => { Trace.WriteLine("Accept button Success"); },
+            () => Trace.WriteLine("No Success"));
     }
 
     private void SaveSettings()
@@ -107,9 +111,23 @@ public partial class VpnHelperForm : Form
         Process.Start(psi);
     }
 
+    private void TestUIButton_Click(object sender, EventArgs e)
+    {
+        if (IsTestMonitoring)
+        {
+            UIAutomationTesting.DisableAutomationEventHandlers();
+            IsTestMonitoring = false;
+        }
+        else
+        {
+            UIAutomationTesting.EnableAutomationEventHandlers();
+            IsTestMonitoring = true;
+        }
+    }
+
     private void VpnLinkForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         SaveSettings();
-        VpnController.DisableAutomationEventHandlers();
+        UIAutomation.WrapUp(false);
     }
 }

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public class VpnService
 {

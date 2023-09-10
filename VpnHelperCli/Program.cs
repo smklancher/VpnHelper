@@ -1,9 +1,25 @@
-﻿using VpnLink;
+﻿using VpnHelper;
 
-namespace VpnLinkCli;
+namespace VpnHelperCli;
 
 public class Program
 {
+    public static void AcceptButtonSuccess()
+    {
+        ConsoleUtilities.CancelReadLine();
+    }
+
+    public static void Failure()
+    {
+        ConsoleUtilities.CancelReadLine();
+        Environment.ExitCode = -1;
+    }
+
+    public static void LoginButtonSuccess()
+    {
+        Console.WriteLine("Login automation success, now waiting for accept button after MFA is finished...");
+    }
+
     /// <summary>
     /// Connect to VPN if needed
     /// </summary>
@@ -15,8 +31,9 @@ public class Program
         Options.Instance.Server = server;
         Options.Instance.CredentialName = savedCredentialName;
         Options.Instance.IsConsoleSessionRequired = consoleSessionRequired;
-        VpnController.ConnectIfNeeded2();
+        VpnController.ConnectWithUIAutomation(LoginButtonSuccess, AcceptButtonSuccess, Failure);
 
-        Console.ReadLine();
+        Console.WriteLine("Waiting for UI automation...");
+        ConsoleUtilities.ReadLine("");
     }
 }

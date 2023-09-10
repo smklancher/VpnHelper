@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public class Options
 {
@@ -26,6 +26,9 @@ public class Options
     [Description("If VPN disallows connections from RDP, this uses tscon to send the session to console before connecting.")]
     public bool IsConsoleSessionRequired { get; set; } = false;
 
+    [Description("Seemed like AI needed to be running, but that was likely helping with a timing issue...")]
+    public bool RunAccessiblityInsightsDuringAutomation { get; set; } = false;
+
     [Description("VPN server to connect to")]
     public string Server { get; set; } = string.Empty;
 
@@ -33,7 +36,7 @@ public class Options
     public bool ShowVpnCliOutput { get; set; } = false;
 
     [Description("Don't check if already connected: just kill and reconnect.")]
-    public bool SkipExistingConnectionCheck { get; set; } = true;
+    public bool SkipExistingConnectionCheck { get; set; } = false;
 
     public void OnCloseOptionsForm()
     {

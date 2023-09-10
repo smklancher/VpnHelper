@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public enum VpnConnectionStatus
 {
@@ -122,6 +122,12 @@ public static class VpnCli
 
         var logtxt = $"StrOut:\r\n{result.Output}\r\n\r\nStdErr:\r\n{result.StdErr}";
         return logtxt;
+    }
+
+    public static List<string> VpnCommands()
+    {
+        var cred = CredentialHelper.GetVpnCredentials();
+        return VpnCli.ConnectCommands(Options.Instance.Server, cred.UserName, cred.Password);
     }
 
     private static string SendVpnCommandAndWait(string cmd)

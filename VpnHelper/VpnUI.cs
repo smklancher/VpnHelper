@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace VpnLink
+namespace VpnHelper
 {
     public class VpnUI
     {

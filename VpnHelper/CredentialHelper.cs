@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using AdysTech.CredentialManager;
 
-namespace VpnLink;
+namespace VpnHelper;
 
 public static class CredentialHelper
 {
