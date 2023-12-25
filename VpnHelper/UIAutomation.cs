@@ -20,12 +20,12 @@ namespace VpnHelper
         public static bool AcceptButtonComplete = false;
         public static bool Failed = false;
         public static bool LoginAutomationComplete = false;
-        private const string AcceptButtonDialogTitle = "Cisco AnyConnect";
+        private const string AcceptButtonDialogTitle = "Cisco Secure Client";
 
         // find Window elements with https://github.com/microsoft/accessibility-insights-windows
         private const string EmailTextBoxName = "Enter your email, phone, or Skype.";
 
-        private const string HelperWindowTitle = "Cisco AnyConnect Login";
+        private const string HelperWindowTitle = "Cisco Secure Client - Login";
         private const string NextButtonText = "Next";
         private const string SignInButtonText = "Sign in";
         private static Process? AccessibilityInsightsProcess;
@@ -88,7 +88,7 @@ namespace VpnHelper
             }
             else
             {
-                Fail($"accept button not found");
+                Log.WriteLine($"accept button not found");
             }
         }
 
@@ -102,6 +102,8 @@ namespace VpnHelper
             LoginAutomationComplete = false;
             StartAccessibilityInsights();
             PasswordTextBoxName = $"Enter the password for {GetEmail()}";
+
+            Log.WriteLine($"Enabling automation event handlers");
 
             Automation.AddAutomationEventHandler(WindowPattern.WindowOpenedEvent, AutomationElement.RootElement, TreeScope.Children, LoginAutomation);
 
@@ -124,7 +126,7 @@ namespace VpnHelper
         private static void LoginAutomation(object sender, AutomationEventArgs e)
         {
             var window = sender as AutomationElement;
-            if (window == null) { return; }
+            if (window == null || LoginAutomationComplete) { return; }
 
             if (SetEmail(window))
             {
@@ -141,17 +143,16 @@ namespace VpnHelper
         private static bool SetEmail(AutomationElement window)
         {
             Log.WriteLine($"(SetEmail) Found Window {window.Current.Name}");
-            if (window.Current.Name != HelperWindowTitle) return false;
+            if (!window.Current.Name.StartsWith(HelperWindowTitle)) return false;
 
             //Since it's a web page, inner elements are not loaded immediately
             Thread.Sleep(WaitForLoadMs);
             //Log.WriteLine($"Found Window {window.Current.Name}");
 
-
             // This seems like it only works when accessiblity insights utilty is running...
             var email = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
             var tries = 3;
-            while (email==null && tries > 0)
+            while (email == null && tries > 0)
             {
                 Log.WriteLine($"Trying to find email textbox again...");
                 email = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));

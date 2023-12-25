@@ -9,7 +9,7 @@ public class VpnService
 {
     private static string VpnServiceDisplayName => "Cisco AnyConnect Secure Mobility Agent";
 
-    private static string VpnServiceName => "vpnagent";
+    private static string VpnServiceName => "csc_vpnagent";
 
     public static void RestartService()
     {

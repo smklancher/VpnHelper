@@ -21,7 +21,8 @@ public enum VpnConnectionStatus
 
 public static class VpnCli
 {
-    private static string ExePath => @"C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpncli.exe";
+    private static string ExePath => @"C:\Program Files (x86)\Cisco\Cisco Secure Client\vpncli.exe";
+    //private static string ExePath => @"C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpncli.exe";
 
     public static List<string> ConnectCommands(string server, string user, string password)
     {

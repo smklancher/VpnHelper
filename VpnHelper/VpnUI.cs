@@ -6,7 +6,7 @@ namespace VpnHelper
     {
         public static void Kill()
         {
-            foreach (var process in Process.GetProcessesByName("vpnui"))
+            foreach (var process in Process.GetProcessesByName("csc_ui"))
             {
                 Log.WriteLine($"Killing process {process.ProcessName} PID {process.Id}");
                 process.Kill();
@@ -15,7 +15,7 @@ namespace VpnHelper
 
         public static Process Start()
         {
-            var p = Process.Start(@"C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnui.exe");
+            var p = Process.Start(@"C:\Program Files (x86)\Cisco\Cisco Secure Client\UI\csc_ui.exe");
 
             return p;
         }
