@@ -27,7 +27,11 @@ public static class VpnController
 
         if (!Options.Instance.SkipExistingConnectionCheck)
         {
-            if (IsConnected()) { Log.WriteLine("Already connected."); return false; }
+            if (IsConnected())
+            {
+                Log.WriteLine("Already connected.");
+                return false;
+            }
         }
 
         if (!SessionHelper.ChangeToConsoleSessionIfNeeded()) { return false; }

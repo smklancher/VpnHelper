@@ -4,15 +4,19 @@ namespace VpnHelperCli;
 
 public class Program
 {
+    private static bool alreadyFinished = false;
+
     public static void AcceptButtonSuccess()
     {
         ConsoleUtilities.CancelReadLine();
+        alreadyFinished = true;
     }
 
     public static void Failure()
     {
-        ConsoleUtilities.CancelReadLine();
         Environment.ExitCode = -1;
+        ConsoleUtilities.CancelReadLine();
+        alreadyFinished = true;
     }
 
     public static void LoginButtonSuccess()
@@ -31,9 +35,13 @@ public class Program
         Options.Instance.Server = server;
         Options.Instance.CredentialName = savedCredentialName;
         Options.Instance.IsConsoleSessionRequired = consoleSessionRequired;
+
         VpnController.ConnectWithUIAutomation(LoginButtonSuccess, AcceptButtonSuccess, Failure);
 
-        Console.WriteLine("Waiting for UI automation...");
-        ConsoleUtilities.ReadLine("");
+        if (!alreadyFinished)
+        {
+            Console.WriteLine("Waiting for UI automation...");
+            ConsoleUtilities.ReadLine("");
+        }
     }
 }
