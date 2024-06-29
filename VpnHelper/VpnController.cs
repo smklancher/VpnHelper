@@ -91,7 +91,7 @@ public static class VpnController
         VpnService.RestartService();
         var vpnUiProcess = VpnUI.Start();
 
-        UIAutomation.AutomationWithTimeout(60, onLoginSuccess, onAcceptButtonSuccess, onFailure);
+        UIAutomation.AutomationWithTimeout(Options.Instance.OverallTimeoutSeconds, onLoginSuccess, onAcceptButtonSuccess, onFailure);
     }
 
     public static bool IsConnected()

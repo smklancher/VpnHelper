@@ -31,7 +31,7 @@ namespace VpnHelper
         private static Process? AccessibilityInsightsProcess;
         private static string PasswordTextBoxName = "Enter the password for [email]";
 
-        private static int WaitForLoadMs = 5000;
+        private static int WaitForLoadMs = 1000;
 
         private static Action? AcceptButtonAutomationSuccessCallback { get; set; }
         private static Action? LoginAutomationSuccessCallback { get; set; }
@@ -74,7 +74,7 @@ namespace VpnHelper
             Log.WriteLine($"(AcceptButton) Found Window {window.Current.Name}");
             if (window.Current.Name != AcceptButtonDialogTitle) return;
 
-            var acceptButton = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Accept"));
+            var acceptButton = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Accept"));
             var invokePattern = acceptButton?.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
             if (acceptButton != null && invokePattern != null)
             {
@@ -95,6 +95,7 @@ namespace VpnHelper
         private static void DisableAutomationEventHandlers()
         {
             Automation.RemoveAllEventHandlers();
+            Log.ShowSecondsSince = null;
         }
 
         private static void EnableAutomationEventHandlers()
@@ -104,6 +105,7 @@ namespace VpnHelper
             PasswordTextBoxName = $"Enter the password for {GetEmail()}";
 
             Log.WriteLine($"Enabling automation event handlers");
+            Log.ShowSecondsSince = DateTime.Now;
 
             Automation.AddAutomationEventHandler(WindowPattern.WindowOpenedEvent, AutomationElement.RootElement, TreeScope.Children, LoginAutomation);
 
@@ -131,7 +133,7 @@ namespace VpnHelper
             if (SetEmail(window))
             {
                 // it would be better to figure out separate automation events, but waiting a bit should be good enough to get something working
-                Thread.Sleep(WaitForLoadMs);
+                SleepMs(5000);
                 var finished = SetPassword(window);
                 LoginAutomationComplete = true;
 
@@ -146,46 +148,46 @@ namespace VpnHelper
             if (!window.Current.Name.StartsWith(HelperWindowTitle)) return false;
 
             //Since it's a web page, inner elements are not loaded immediately
-            Thread.Sleep(WaitForLoadMs);
+            //SleepMs();
             //Log.WriteLine($"Found Window {window.Current.Name}");
 
             // This seems like it only works when accessiblity insights utilty is running...
-            var email = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
+            var email = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
             var tries = 3;
             while (email == null && tries > 0)
             {
-                Log.WriteLine($"Trying to find email textbox again...");
-                email = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
+                Log.WriteLine($"(SetEmail) Trying to find email textbox again...");
+                email = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
                 tries--;
 
                 if (email == null)
                 {
-                    Thread.Sleep(WaitForLoadMs);
+                    SleepMs();
                 }
             }
 
             var valuePattern = email?.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
             if (email != null && valuePattern != null)
             {
-                Log.WriteLine($"Found {window.Current.Name}.{email.Current.Name}");
+                Log.WriteLine($"(SetEmail) Found {window.Current.Name}.{email.Current.Name}");
                 valuePattern.SetValue(GetEmail());
             }
             else
             {
-                Fail($"email field not found");
+                Fail($"(SetEmail) email field not found");
                 return false;
             }
 
-            var nextButton = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, NextButtonText));
+            var nextButton = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, NextButtonText));
             var invokePattern = nextButton?.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
             if (nextButton != null && invokePattern != null)
             {
-                Log.WriteLine($"Found {window.Current.Name}.{nextButton.Current.Name}");
+                Log.WriteLine($"(SetEmail) Found {window.Current.Name}.{nextButton.Current.Name}");
                 invokePattern.Invoke();
             }
             else
             {
-                Fail($"next button not found");
+                Fail($"(SetEmail) next button not found");
                 return false;
             }
 
@@ -196,35 +198,56 @@ namespace VpnHelper
         {
             if (window == null) { return false; }
 
-            var password = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, PasswordTextBoxName));
+            var password = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, PasswordTextBoxName));
             var valuePattern = password?.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
+            var tries = 3;
+            while (password == null && tries > 0)
+            {
+                Log.WriteLine($"(SetPassword) Trying to find password textbox again...");
+                password = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, PasswordTextBoxName));
+                valuePattern = password?.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
+                tries--;
+
+                if (password == null)
+                {
+                    SleepMs();
+                }
+            }
+
             if (password != null && valuePattern != null)
             {
-                Log.WriteLine($"Found {window.Current.Name}.{password.Current.Name}");
+                Log.WriteLine($"(SetPassword) Found {window.Current.Name}.{password.Current.Name}");
 
                 var cred = CredentialHelper.GetVpnCredentials();
                 valuePattern.SetValue(cred.Password);
             }
             else
             {
-                Fail($"password field not found");
+                Fail($"(SetPassword) password field not found");
                 return false;
             }
 
-            var nextButton = window.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, SignInButtonText));
+            var nextButton = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, SignInButtonText));
             var invokePattern = nextButton?.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
             if (nextButton != null && invokePattern != null)
             {
-                Log.WriteLine($"Found {window.Current.Name}.{nextButton.Current.Name}");
+                Log.WriteLine($"(SetPassword) Found {window.Current.Name}.{nextButton.Current.Name}");
                 invokePattern.Invoke();
             }
             else
             {
-                Fail($"signin button not found");
+                Fail($"(SetPassword) signin button not found");
                 return false;
             }
 
             return true;
+        }
+
+        private static void SleepMs(int ms = -1)
+        {
+            ms = ms == -1 ? Options.Instance.UIAutomationDelayMs : ms;
+            Log.WriteLine($"Sleep ms: {ms}");
+            Thread.Sleep(ms);
         }
 
         private static void StartAccessibilityInsights()

@@ -26,6 +26,9 @@ public class Options
     [Description("If VPN disallows connections from RDP, this uses tscon to send the session to console before connecting.")]
     public bool IsConsoleSessionRequired { get; set; } = false;
 
+    [Description("Timeout for the UI automation")]
+    public int OverallTimeoutSeconds { get; set; } = 120;
+
     [Description("Seemed like AI needed to be running, but that was likely helping with a timing issue...")]
     public bool RunAccessiblityInsightsDuringAutomation { get; set; } = false;
 
@@ -37,6 +40,9 @@ public class Options
 
     [Description("Don't check if already connected: just kill and reconnect.")]
     public bool SkipExistingConnectionCheck { get; set; } = false;
+
+    [Description("Delay milliseconds between some parts of the UI automation")]
+    public int UIAutomationDelayMs { get; set; } = 500;
 
     public void OnCloseOptionsForm()
     {
