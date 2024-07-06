@@ -26,6 +26,9 @@ public class Options
     [Description("If VPN disallows connections from RDP, this uses tscon to send the session to console before connecting.")]
     public bool IsConsoleSessionRequired { get; set; } = false;
 
+    [Description("Number of retries for a given UI automation")]
+    public int NumberOfRetries { get; set; } = 10;
+
     [Description("Timeout for the UI automation")]
     public int OverallTimeoutSeconds { get; set; } = 120;
 

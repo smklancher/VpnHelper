@@ -153,7 +153,7 @@ namespace VpnHelper
 
             // This seems like it only works when accessiblity insights utilty is running...
             var email = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, EmailTextBoxName));
-            var tries = 3;
+            var tries = Options.Instance.NumberOfRetries;
             while (email == null && tries > 0)
             {
                 Log.WriteLine($"(SetEmail) Trying to find email textbox again...");
@@ -200,7 +200,7 @@ namespace VpnHelper
 
             var password = window.FindFirstLog(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, PasswordTextBoxName));
             var valuePattern = password?.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
-            var tries = 3;
+            var tries = Options.Instance.NumberOfRetries;
             while (password == null && tries > 0)
             {
                 Log.WriteLine($"(SetPassword) Trying to find password textbox again...");
